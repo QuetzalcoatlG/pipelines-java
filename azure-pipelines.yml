@@ -10,6 +10,16 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'sonar'
+    scannerMode: 'MSBuild'
+    projectKey: 'SonarNodeFunction'
+    projectName: 'SonarNodeFunction'
+- task: SonarQubeAnalyze@4
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
